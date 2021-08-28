@@ -2,16 +2,25 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+
+	id 'checkstyle'
 }
 
 group = 'dev.marcelomds'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+checkstyle {
+	project.ext.checkstyleVersion = '8.45.1'
+	project.ext.sevntuChecksVersion = '1.40.0'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
+	checkstyle
 }
 
 repositories {
@@ -22,9 +31,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+	checkstyle "com.github.sevntu-checkstyle:sevntu-checks:${sevntuChecksVersion}"
 }
 
 test {
